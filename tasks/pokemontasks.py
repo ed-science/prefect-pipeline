@@ -9,9 +9,7 @@ class ExtractPokemon(Task):
         response = requests.get(url)
         if response.ok: 
             return response.json()
-        logger.warning(
-            "Could not load pokemon list! Error {}".format(response.status_code)
-        )
+        logger.warning(f"Could not load pokemon list! Error {response.status_code}")
         return {"results": []}
 
 
@@ -20,13 +18,11 @@ class TransformPokemon(Task):
         logger = prefect.context.get("logger")
         url = pokemon["url"]
         name = pokemon["name"].title()
-        logger.info("Getting {} from {}".format(name, url))
+        logger.info(f"Getting {name} from {url}")
         response = requests.get(url)
         if response.ok:
             return response.json()
-        logger.warning(
-            "Could not load pokemon {}! Error {}".format(name, response.status_code)
-        )
+        logger.warning(f"Could not load pokemon {name}! Error {response.status_code}")
         return {} 
         
         
